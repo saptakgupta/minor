@@ -558,7 +558,7 @@ async function handleBookings(req, res, url, segments) {
         }
 
         const body = await readJsonBody(req);
-        const nextStatus = body.status ? ? booking.status;
+        const nextStatus = body.status ?? booking.status;
 
         if (!BOOKING_STATUSES.has(nextStatus)) {
             sendError(res, 400, "Invalid booking status.");

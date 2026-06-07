@@ -349,7 +349,7 @@ function handleEvents(req, res) {
         res.write("event: heartbeat\n");
         res.write(`data: ${JSON.stringify({ timestamp: new Date().toISOString() })}\n\n`);
     }, 15000);
-    heartbeat.unref ? .();
+    heartbeat.unref?.();
 
     req.on("close", () => {
         clearInterval(heartbeat);
@@ -424,7 +424,7 @@ async function handleSlots(req, res, url, segments) {
         }
 
         const body = await readJsonBody(req);
-        const nextStatus = body.status ? ? slot.status;
+        const nextStatus = body.status ?? slot.status;
         const nextZone = body.zone === undefined ? slot.zone : normalizeString(body.zone).toUpperCase();
         const nextFloor = body.floor === undefined ? slot.floor : normalizeString(body.floor);
 

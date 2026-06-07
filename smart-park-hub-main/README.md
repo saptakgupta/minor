@@ -99,6 +99,26 @@ The frontend defaults to `http://127.0.0.1:3001/api`. To override it, set:
 VITE_API_URL=http://127.0.0.1:3001/api
 ```
 
+For the deployed Vercel frontend, set this environment variable in Vercel:
+
+```sh
+VITE_API_URL=https://smart-parking-hub.onrender.com/api
+```
+
+This is a Vite app, so use `VITE_API_URL`. `NEXT_PUBLIC_API_URL` is only for Next.js apps.
+
+For the deployed Render backend, set this environment variable in Render if you want to restrict CORS to your frontend:
+
+```sh
+CORS_ORIGIN=https://your-vercel-project.vercel.app
+```
+
+For Vercel preview deployments, a wildcard is also supported:
+
+```sh
+CORS_ORIGIN=https://*.vercel.app
+```
+
 Realtime demo flow:
 
 1. Open `/availability` in one browser tab.

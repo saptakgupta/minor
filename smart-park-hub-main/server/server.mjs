@@ -18,7 +18,9 @@ const PORT = Number.parseInt(process.env.PORT || "3001", 10);
 const BODY_LIMIT_BYTES = Number.parseInt(process.env.BODY_LIMIT_BYTES || "1048576", 10);
 const RATE_LIMIT_WINDOW_MS = Number.parseInt(process.env.RATE_LIMIT_WINDOW_MS || "60000", 10);
 const RATE_LIMIT_MAX = Number.parseInt(process.env.RATE_LIMIT_MAX || "120", 10);
-const CORS_ORIGINS = (process.env.CORS_ORIGIN || "http://localhost:8080,http://127.0.0.1:8080,http://localhost:5173")
+const CORS_ORIGINS = (
+  process.env.CORS_ORIGIN || "http://localhost:8080,http://127.0.0.1:8080,http://localhost:5173,https://*.vercel.app"
+)
   .split(",")
   .map((origin) => origin.trim())
   .filter(Boolean);
@@ -224,13 +226,36 @@ function applySecurityHeaders(res) {
   res.setHeader("Cross-Origin-Resource-Policy", "same-site");
 }
 
+function escapeRegExp(value) {
+  return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
+function isCorsOriginAllowed(origin) {
+  if (!origin) {
+    return false;
+  }
+
+  return CORS_ORIGINS.some((allowedOrigin) => {
+    if (allowedOrigin === "*" || allowedOrigin === origin) {
+      return true;
+    }
+
+    if (!allowedOrigin.includes("*")) {
+      return false;
+    }
+
+    const pattern = `^${allowedOrigin.split("*").map(escapeRegExp).join(".*")}$`;
+    return new RegExp(pattern).test(origin);
+  });
+}
+
 function applyCors(req, res) {
   const origin = req.headers.origin;
   const allowAll = CORS_ORIGINS.includes("*");
 
   if (allowAll) {
     res.setHeader("Access-Control-Allow-Origin", "*");
-  } else if (origin && CORS_ORIGINS.includes(origin)) {
+  } else if (isCorsOriginAllowed(origin)) {
     res.setHeader("Access-Control-Allow-Origin", origin);
     res.setHeader("Vary", "Origin");
   }

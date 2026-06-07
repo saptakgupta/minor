@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="SmartPark logo">
+  <defs>
+    <linearGradient id="smartpark-gradient" x1="10" y1="8" x2="54" y2="56" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#2563eb" />
+      <stop offset="1" stop-color="#14b8a6" />
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="14" fill="url(#smartpark-gradient)" />
+  <path
+    d="M16 33.5h32m-36 4.5h3m34 0h3M19 42a4 4 0 1 0 0 8 4 4 0 0 0 0-8Zm26 0a4 4 0 1 0 0 8 4 4 0 0 0 0-8ZM16 42h32c2.2 0 4-1.8 4-4v-6.4c0-2.4-1.7-4.5-4-5l-6.6-1.5-5.3-7.1A6 6 0 0 0 31.3 16H22a6 6 0 0 0-5.4 3.3L12 29v9c0 2.2 1.8 4 4 4Zm6-26 4 9m14 0H26"
+    fill="none"
+    stroke="#fff"
+    stroke-width="4"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  />
+</svg>
